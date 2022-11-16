@@ -19,13 +19,11 @@ CREATE TABLE buku_penghubung (
 );
 SELECT * FROM buku_penghubung;
 
-DROP TABLE buku_penghubung;
-
 CREATE TABLE walikelas (
     nip_walikelas VARCHAR(100) PRIMARY KEY NOT NULL,
     nama VARCHAR(100),
     jenis_kelamin VARCHAR(10),
-    no_telp INT
+    no_telp VARCHAR(100)
 );
 SELECT * FROM walikelas;
 
@@ -57,7 +55,7 @@ CREATE TABLE pengajar (
     nip_pengajar VARCHAR(100) PRIMARY KEY NOT NULL,
     nama VARCHAR(100),
     jenis_kelamin VARCHAR(10),
-    no_telp INT
+    no_telp VARCHAR(100)
 );
 SELECT * FROM pengajar;
 
