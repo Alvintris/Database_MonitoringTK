@@ -1,93 +1,102 @@
+CREATE DATABASE monitoring_tk;
 USE monitoring_tk;
 
-INSERT INTO murid
-VALUES (10001, "Karen", "Budi", "Laki-Laki", 5),
-(10002, "Andi", "Luna", "Perempuan", 5),
-(10003, "Yulia", "Kevin", "Laki-Laki", 6),
-(10004, "Alya", "Maria", "Perempuan", 6),
-(10005, "Lukman", "Josua", "Laki-Laki", 5),
-(10006, "Joko", "Olivia", "Perempuan", 5),
-(10007, "Wisnu", "Tobi", "Laki-Laki", 6),
-(10008, "Yuli", "Tina", "Perempuan", 5),
-(10009, "Ananda", "Rafa", "Perempuan", 6),
-(10010, "Agnes", "Paul", "Laki-Laki", 5);
-select * from murid;
+CREATE TABLE buku_penghubung (
+    id_buku VARCHAR(100) PRIMARY KEY NOT NULL,
+    nip_walikelas VARCHAR(100),
+    nis_murid VARCHAR(100),
+    id_pelajaran VARCHAR(100),
+    main_course VARCHAR(100),
+    evaluasi_orangtua VARCHAR(100),
+    catatan_guru VARCHAR(100),
+    snack VARCHAR(100),
+    FOREIGN KEY (nip_walikelas)
+        REFERENCES walikelas (nip_walikelas),
+    FOREIGN KEY (nis_murid)
+        REFERENCES murid (nis_murid),
+    FOREIGN KEY (id_pelajaran)
+        REFERENCES pelajaran (id_pelajaran)
+);
+SELECT * FROM buku_penghubung;
 
-INSERT INTO pengajar
-VALUES (101, "Gusti", "Laki-Laki", 812555738192),
-(102, "Dian", "Perempuan", 812532734192),
-(103, "Simon", "Laki-Laki", 813257381801),
-(104, "Daniel", "Laki-Laki", 821675738170),
-(105, "Aprilla", "Perempuan", 821333738191),
-(106, "Lina", "Perempuan", 812897738123),
-(107, "Rudi", "Laki-Laki", 812589724132),
-(108, "Dina", "Perempuan", 814325733192),
-(109, "Fitri", "Perempuan", 812234438109),
-(110, "Jonathan", "Laki-Laki", 812935738888);
-select * from pengajar;
+DROP TABLE buku_penghubung;
 
-INSERT INTO pelajaran
-VALUES (301, "Berhitung", "Mempelajari Operasi Perhitungan"),
-(302, "Membaca", "Mempelajari cara membaca tulisan"),
-(303, "Menggambar", "Menggambar objek tertentu"),
-(304, "Menulis", "Menulis Kata");
-select * from pelajaran;
+CREATE TABLE walikelas (
+    nip_walikelas VARCHAR(100) PRIMARY KEY NOT NULL,
+    nama VARCHAR(100),
+    jenis_kelamin VARCHAR(10),
+    no_telp INT
+);
+SELECT * FROM walikelas;
 
-INSERT INTO kategori_pelajaran
-VALUES (301, "Motorik Halus", "-"),
-(302, "Motorik Halus", "-"),
-(303, "Motorik Halus", "-"),
-(304, "Motorik Halus", "-");
-select * from kategori_pelajaran;
+CREATE TABLE murid (
+    nis_murid VARCHAR(100) PRIMARY KEY NOT NULL,
+    nama_orangtua VARCHAR(100),
+    nama_murid VARCHAR(100),
+    jenis_kelamin VARCHAR(10),
+    umur INT
+);
+SELECT * FROM murid;
 
-INSERT INTO walikelas
-VALUES (501, "Gusti", "Laki-Laki", 812555738192),
-(502, "Dian", "Perempuan", 812532734192),
-(503, "Simon", "Laki-Laki", 813257381801),
-(504, "Daniel", "Laki-Laki", 821675738170),
-(505, "Aprilla", "Perempuan", 821333738191),
-(506, "Lina", "Perempuan", 812897738123),
-(507, "Rudi", "Laki-Laki", 812589724132),
-(508, "Dina", "Perempuan", 814325733192),
-(509, "Fitri", "Perempuan", 812234438109),
-(510, "Jonathan", "Laki-Laki", 812935738888);
-select * from walikelas;
+CREATE TABLE transaksi (
+    id_transaksi VARCHAR(100) PRIMARY KEY NOT NULL,
+    nip_pengajar VARCHAR(100),
+    nis_murid VARCHAR(100),
+    id_pelajaran VARCHAR(100),
+    status_absen BOOLEAN,
+    FOREIGN KEY (nip_pengajar)
+        REFERENCES pengajar (nip_pengajar),
+	FOREIGN KEY (nis_murid)
+        REFERENCES murid (nis_murid),
+	FOREIGN KEY (id_pelajaran)
+        REFERENCES pelajaran (id_pelajaran)
+);
+SELECT * FROM transaksi;
 
-INSERT INTO kelas
-VALUES(201, 301, 501, 1.1, "A", 5),
-(202, 301, 502, 1.2, "B", 3),
-(203, 301, 503, 1.3, "C", 4),
-(204, 302, 504, 2.1, "D", 6),
-(205, 302, 505, 2.2, "E", 3),
-(206, 302, 506, 2.3, "F", 3),
-(207, 303, 507, 3.1, "G", 4),
-(208, 303, 508, 3.2, "H", 5),
-(209, 304, 509, 3.3, "I", 5),
-(210, 304, 510, 4.1, "J", 5);
-select * from kelas;
+CREATE TABLE pengajar (
+    nip_pengajar VARCHAR(100) PRIMARY KEY NOT NULL,
+    nama VARCHAR(100),
+    jenis_kelamin VARCHAR(10),
+    no_telp INT
+);
+SELECT * FROM pengajar;
 
-INSERT INTO transaksi
-VALUES (9001, 101, 10002, 301, 1),
-(9002, 101, 10001, 301, 1),
-(9003, 102, 10003, 302, 1),
-(9004, 102, 10004, 302, 1),
-(9005, 103, 10005, 303, 1),
-(9006, 103, 10006, 303, 1),
-(9007, 103, 10007, 303, 1),
-(9008, 102, 10008, 302, 1),
-(9009, 102, 10009, 302, 1),
-(9010, 101, 10010, 301, 1);
-select * from transaksi;
+CREATE TABLE detail_transaksi (
+    id_transaksi VARCHAR(100) primary key not null,
+    id_pelajaran VARCHAR(100),
+    FOREIGN KEY (id_transaksi)
+        REFERENCES transaksi (id_transaksi),
+	FOREIGN KEY (id_pelajaran)
+        REFERENCES pelajaran (id_pelajaran)
+);
+SELECT * FROM detail_transaksi;
 
-INSERT INTO detail_transaksi
-VALUES(9001, 301),
-(9002, 301),
-(9003, 302),
-(9004, 302),
-(9005, 303),
-(9006, 303),
-(9007, 303),
-(9008, 302),
-(9009, 302),
-(9010, 301);
-select * from detail_transaksi;
+CREATE TABLE pelajaran (
+    id_pelajaran VARCHAR(100) PRIMARY KEY NOT NULL,
+    nama_pelajaran VARCHAR(100),
+    deskripsi VARCHAR(100)
+);
+SELECT * FROM pelajaran;
+
+CREATE TABLE kategori_pelajaran (
+    id_pelajaran VARCHAR(100) PRIMARY KEY NOT NULL,
+    kategori VARCHAR(100),
+    deskripsi VARCHAR(100),
+    FOREIGN KEY (id_pelajaran)
+        REFERENCES pelajaran (id_pelajaran)
+);
+SELECT * FROM kategori_pelajaran;
+
+CREATE TABLE kelas (
+    id_kelas VARCHAR(100) PRIMARY KEY NOT NULL,
+    id_pelajaran VARCHAR(100),
+    nip_walikelas VARCHAR(100),
+    tingkat_kelas INT,
+    nama_kelas VARCHAR(100),
+    jumlah_murid INT,
+    FOREIGN KEY (id_pelajaran)
+        REFERENCES pelajaran (id_pelajaran),
+    FOREIGN KEY (nip_walikelas)
+        REFERENCES walikelas (nip_walikelas)
+);
+SELECT * FROM kelas;
