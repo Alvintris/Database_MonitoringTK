@@ -78,3 +78,29 @@ VALUES ("T0001", "P001", "M0001", "PE001", 1),
 ("T0009", "P009", "M0009", "PE004", 1),
 ("T0010", "P003", "M0010", "PE002", 1);
 SELECT * FROM transaksi;
+
+INSERT INTO detail_transaksi
+VALUES ("T0001", "PE001"),
+("T0002", "PE001"),
+("T0003", "PE002"),
+("T0004", "PE004"),
+("T0005", "PE001"),
+("T0006", "PE003"),
+("T0007", "PE004"),
+("T0008", "PE002"),
+("T0009", "PE004"),
+("T0010", "PE002");
+SELECT * FROM detail_transaksi;
+
+INSERT INTO buku_penghubung
+VALUES ("BP001", "W001", "M0001", "PE001", "Nasi Goreng", "Baik", "Baik", "Permen"),
+("BP002", "W002", "M0002", "PE001", "Nasi Sup Ayam", "Baik", "Baik", "Kentang Goreng"),
+("BP003", "W010", "M0003", "PE002", "Nasi Goreng", "Baik", "Baik", "Permen"),
+("BP004", "W006", "M0004", "PE004", "Mie Goreng", "Baik", "Baik", "Kerpik Singkong"),
+("BP005", "W001", "M0005", "PE001", "Nasi Kuning", "Baik", "Baik", "Permen"),
+("BP006", "W008", "M0006", "PE003", "Nasi Goreng", "Baik", "Baik", "Keripik Singkong"),
+("BP007", "W006", "M0007", "PE004", "Nasi Capcay", "Baik", "Baik", "Kentang Goreng"),
+("BP008", "W004", "M0008", "PE002", "Nasi Capcay", "Baik", "Baik", "Kentang Goreng"),
+("BP009", "W009", "M0009", "PE004", "Nasi Goreng", "Baik", "Baik", "Permen"),
+("BP010", "W003", "M0010", "PE002", "Mie Ayam", "Baik", "Baik", "Keripik Singkong");
+SELECT * FROM buku_penghubung;
