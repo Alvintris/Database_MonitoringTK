@@ -1,4 +1,4 @@
-USE monitoring_tk;
+
 
 INSERT INTO murid
 VALUES ("M0001", "Karen", "Budi", "Laki-Laki", 5),
